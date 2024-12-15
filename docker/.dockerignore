@@ -1,0 +1,21 @@
+../.pre-commit-config.yaml
+../.env_example
+../db.sqlite3
+../.gitignore
+../.git/
+../.idea/
+../poetry.lock
+../static/
+../media/
+
+# Исключаем файлы конфигурации версионирования и редактора
+.git
+.gitignore
+*.pyc
+__pycache__/
+*.log
+
+# Исключаем файлы IDE
+.vscode/
+.idea/
+*.swp
