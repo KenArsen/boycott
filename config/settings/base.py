@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     # third party apps
     #
     # local apps
+    "apps.common.apps.CommonConfig",
 ]
 
 MIDDLEWARE = [
