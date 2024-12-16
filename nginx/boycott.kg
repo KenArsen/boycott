@@ -1,0 +1,52 @@
+server {
+    listen 80;
+    server_name boycott.kg www.boycott.kg;
+
+    client_max_body_size 10M;
+
+    # Настройки для статических файлов
+    location /static/ {
+        alias /var/www/boycott/staticfiles/;
+        try_files $uri $uri/ =404;
+    }
+
+    # Настройки для медиа файлов
+    location /media/ {
+        alias /var/www/boycott/media/;
+        try_files $uri $uri/ =404;
+    }
+
+    # Настройка для перенаправления 404
+    error_page 404 /;
+    location = / {
+        root /var/www/build;
+        index index.html;
+    }
+
+    # Настройки для API
+    location /api/ {
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Methods' 'GET, HEAD, OPTIONS, POST, PUT, PATCH, DELETE';
+        add_header 'Access-Control-Allow-Headers' 'Access-Control-Allow-Headers, Access-Control-Request-Method, Access-Control-Request-Header, Origin, Content-Type, Accept, Authorization, X-Requested-With, Set-cookie';
+
+        include proxy_params;
+        proxy_pass http://unix:/run/neofund.sock;
+    }
+
+    # Настройки для админ панели
+    location /admin/ {
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Methods' 'GET, HEAD, OPTIONS, POST, PUT, PATCH, DELETE';
+        add_header 'Access-Control-Allow-Headers' 'Access-Control-Allow-Headers, Access-Control-Request-Method, Access-Control-Request-Header, Origin, Content-Type, Accept, Authorization, X-Requested-With, Set-cookie';
+
+        include proxy_params;
+        proxy_pass http://unix:/run/neofund.sock;
+    }
+
+    # Главная страница
+    location / {
+        root /var/www/build;  # Путь к директории build
+        index index.html;     # Убедитесь, что это правильное имя файла
+        try_files $uri $uri/ /index.html;  # Попробуйте передать запрос на index.html
+    }
+}
