@@ -4,27 +4,17 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Устанавливаем необходимые пакеты для Poetry
-RUN apt-get update \
-    && apt-get install -y curl \
-    && curl -sSL https://install.python-poetry.org | python3 - \
-    && apt-get clean \
-
-# Добавляем Poetry в PATH
-ENV PATH="/root/.local/bin:$PATH"
-
 # Рабочая директория в контейнере
 WORKDIR /app
 
-# Копируем файлы зависимостей для Poetry
-COPY pyproject.toml poetry.lock ./
-
-# Устанавливаем зависимости с помощью Poetry
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+# Скачиваем Poetry
+RUN pip install poetry
 
 # Копируем файлы проекта
 COPY ../ /app/
+
+# Устанавливаем зависимости с помощью Poetry
+RUN poetry install --without dev --no-interaction --no-ansi
 
 # Делаем скрипт entrypoint.sh исполнимым
 RUN chmod +x /app/docker/entrypoint.sh
