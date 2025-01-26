@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.models import CoreModel
 from apps.user.choices import RoleChoices
 
 
@@ -29,7 +30,9 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractUser):
+class User(CoreModel, AbstractUser):
+    """Пользовательский модель"""
+
     username = None
 
     role = models.CharField(
@@ -48,8 +51,6 @@ class User(AbstractUser):
     phone_number = models.CharField(
         max_length=255, blank=True, verbose_name=_("Phone Number")
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
