@@ -1,5 +1,8 @@
 from pathlib import Path
 
+from django.conf.locale import LANG_INFO
+from django.utils.translation import gettext_lazy as _
+
 from .environment import env
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -9,6 +12,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 INSTALLED_APPS = [
     # first party apps
     "jazzmin",
+    "modeltranslation",
     # second party apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -36,7 +40,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# AUTH_USER_MODEL = "account.User"
 ROOT_URLCONF = "config.urls"
 AUTH_USER_MODEL = "user.User"
 
@@ -79,10 +82,16 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Boycott",
     "site_logo_classes": "img-circle",
     "welcome_sign": "Welcome to the Boycott Admin!",
-    "search_model": ["account.User"],
+    "search_model": ["user.User", "product.Product"],
+    "user_avatar": None,
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Users", "model": "account.User", "url": "/admin/account/user/"},
+        {"name": "Users", "model": "user.User", "url": "/admin/user/user/"},
+        {
+            "name": "Products",
+            "model": "product.Product",
+            "url": "/admin/product/product/",
+        },
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
@@ -92,12 +101,16 @@ JAZZMIN_SETTINGS = {
     "icons": {
         # Users
         "user": "fas fa-users-cog",
-        "account.User": "fas fa-user",
-        "account.Profile": "fas fa-id-card",
-        "account.Invitation": "fas fa-envelope-open-text",
-        "user.Group": "fas fa-users",
+        "user.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "user.Invitation": "fas fa-envelope-open-text",
         # Sites
         "sites.Site": "fas fa-globe",
+        # Products
+        "product.Product": "fas fa-box",
+        "product.Category": "fas fa-tags",
+        "product.Reason": "fas fa-exclamation-triangle",
+        "product.Review": "fas fa-comment-alt",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
@@ -109,7 +122,7 @@ JAZZMIN_SETTINGS = {
         "auth.user": "collapsible",
         "auth.group": "vertical_tabs",
     },
-    # "language_chooser": True,
+    "language_chooser": True,
 }
 
 EMAIL_HOST = env.str("EMAIL_HOST", default="smtp.gmail.com")
@@ -119,24 +132,36 @@ EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
 
+# Internationalization settings
 LANGUAGE_CODE = "ru-ru"
+LANGUAGES = [
+    ("en", _("English")),
+    ("ru", _("Russian")),
+    ("kg", _("Kyrgyz")),
+]
 
-# LANGUAGES = [
-#     ("en", _("English")),
-#     ("ru", _("Russian")),
-# ]
-#
-# MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
-# MODELTRANSLATION_LANGUAGES = ("en", "ru")
-#
-# LOCALE_PATHS = [BASE_DIR / "locale/"]
+MODELTRANSLATION_LANGUAGES = ("en", "ru", "kg")
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
+
+LANG_INFO.update(
+    {
+        "kg": {
+            "bidi": False,
+            "code": "kg",
+            "name": "Kyrgyz",
+            "name_local": "Кыргызча",
+        },
+    }
+)
 
 TIME_ZONE = env.str("TIME_ZONE", default="UTC")
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 SITE_ID = env.int("SITE_ID", default=1)
+
+LOCALE_PATHS = [BASE_DIR / "locale/"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

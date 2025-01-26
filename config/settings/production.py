@@ -29,10 +29,12 @@ DATABASES = {
 # Production-specific email backend
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-# Static and media files
+# Static files settings
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_URL = "media/"
+
+# Media files settings
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Logging

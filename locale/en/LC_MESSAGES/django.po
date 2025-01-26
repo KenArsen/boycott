@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-26 17:41+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: apps/common/models/core.py:20 apps/product/models/product.py:138
+msgid "Created at"
+msgstr ""
+
+#: apps/common/models/core.py:24
+msgid "Updated at"
+msgstr ""
+
+#: apps/product/models/product.py:12
+msgid "Category name"
+msgstr ""
+
+#: apps/product/models/product.py:14
+msgid "Category slug"
+msgstr ""
+
+#: apps/product/models/product.py:17 apps/product/models/product.py:45
+msgid "Category"
+msgstr ""
+
+#: apps/product/models/product.py:18
+msgid "Categories"
+msgstr ""
+
+#: apps/product/models/product.py:27
+msgid "Title"
+msgstr ""
+
+#: apps/product/models/product.py:28 apps/product/models/product.py:48
+msgid "Description"
+msgstr ""
+
+#: apps/product/models/product.py:31 apps/product/models/product.py:55
+msgid "Boycott reason"
+msgstr ""
+
+#: apps/product/models/product.py:32
+msgid "Boycott reasons"
+msgstr ""
+
+#: apps/product/models/product.py:47
+msgid "Name"
+msgstr ""
+
+#: apps/product/models/product.py:49
+msgid "Is boycotted"
+msgstr ""
+
+#: apps/product/models/product.py:57
+msgid "Query count"
+msgstr ""
+
+#: apps/product/models/product.py:59
+msgid "Is kyrgyz product"
+msgstr ""
+
+#: apps/product/models/product.py:62
+msgid "Image"
+msgstr ""
+
+#: apps/product/models/product.py:65
+msgid "Alternative products"
+msgstr ""
+
+#: apps/product/models/product.py:69 apps/product/models/product.py:123
+msgid "Product"
+msgstr ""
+
+#: apps/product/models/product.py:70
+msgid "Products"
+msgstr ""
+
+#: apps/product/models/product.py:131 apps/user/models/user.py:61
+msgid "User"
+msgstr ""
+
+#: apps/product/models/product.py:135
+msgid "Rating"
+msgstr ""
+
+#: apps/product/models/product.py:137
+msgid "Comment"
+msgstr ""
+
+#: apps/product/models/product.py:141
+msgid "Review"
+msgstr ""
+
+#: apps/product/models/product.py:142
+msgid "Reviews"
+msgstr ""
+
+#: apps/user/admin.py:16
+msgid "Personal info"
+msgstr ""
+
+#: apps/user/admin.py:27
+msgid "Permissions"
+msgstr ""
+
+#: apps/user/admin.py:38
+msgid "Important dates"
+msgstr ""
+
+#: apps/user/choices.py:6
+msgid "Admin"
+msgstr ""
+
+#: apps/user/choices.py:7
+msgid "Moderator"
+msgstr ""
+
+#: apps/user/models/user.py:42
+msgid "Role"
+msgstr ""
+
+#: apps/user/models/user.py:44
+msgid "Email"
+msgstr ""
+
+#: apps/user/models/user.py:46
+msgid "First Name"
+msgstr ""
+
+#: apps/user/models/user.py:49
+msgid "Last Name"
+msgstr ""
+
+#: apps/user/models/user.py:52
+msgid "Phone Number"
+msgstr ""
+
+#: apps/user/models/user.py:62
+msgid "Users"
+msgstr ""
+
+#: config/settings/base.py:134
+msgid "English"
+msgstr ""
+
+#: config/settings/base.py:135
+msgid "Russian"
+msgstr ""
+
+#: config/settings/base.py:136
+msgid "Kyrgyz"
+msgstr ""
