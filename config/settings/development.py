@@ -15,7 +15,7 @@ DATABASES = {
 }
 
 # Development-specific email backend
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Static files
 STATIC_URL = "static/"

@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     #
     # local apps
     "apps.common.apps.CommonConfig",
+    "apps.user.apps.UserConfig",
 ]
 
 MIDDLEWARE = [
@@ -36,6 +37,7 @@ MIDDLEWARE = [
 
 # AUTH_USER_MODEL = "account.User"
 ROOT_URLCONF = "config.urls"
+AUTH_USER_MODEL = "user.User"
 
 TEMPLATES = [
     {
@@ -108,6 +110,13 @@ JAZZMIN_SETTINGS = {
     },
     # "language_chooser": True,
 }
+
+EMAIL_HOST = env.str("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
 
 LANGUAGE_CODE = "ru-ru"
 
