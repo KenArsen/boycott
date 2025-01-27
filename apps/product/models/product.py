@@ -5,6 +5,12 @@ from apps.common.models import CoreModel
 from apps.user.models import User
 
 
+def product_image_upload_path(instance, filename):
+    """Формирует путь для сохранения изображения в формате 'products/<category_slug>/<product_id>.jpg'"""
+    extension = filename.split(".")[-1]  # Получаем расширение файла
+    return f"products/{instance.category.slug}/{instance.pk}.{extension}"
+
+
 class Category(CoreModel):
     """Категория товаров (например, Напитки, Косметика)"""
 
@@ -59,7 +65,10 @@ class Product(CoreModel):
         default=False, verbose_name=_("Is kyrgyz product")
     )
     image = models.ImageField(
-        upload_to="products/", blank=True, null=True, verbose_name=_("Image")
+        upload_to=product_image_upload_path,
+        blank=True,
+        null=True,
+        verbose_name=_("Image"),
     )
     alternative_products = models.ManyToManyField(
         to="self", blank=True, verbose_name=_("Alternative products")

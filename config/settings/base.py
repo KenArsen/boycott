@@ -162,6 +162,15 @@ USE_TZ = True
 
 SITE_ID = env.int("SITE_ID", default=1)
 
+# Static files settings
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Media files settings
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 LOCALE_PATHS = [BASE_DIR / "locale/"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
