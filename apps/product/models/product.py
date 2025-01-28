@@ -8,7 +8,7 @@ from apps.user.models import User
 def product_image_upload_path(instance, filename):
     """Формирует путь для сохранения изображения в формате 'products/<category_slug>/<product_id>.jpg'"""
     extension = filename.split(".")[-1]  # Получаем расширение файла
-    return f"products/{instance.category.slug}/{instance.pk}.{extension}"
+    return f"products/logos/{instance.category.slug}/{instance.pk}.{extension}"
 
 
 class Category(CoreModel):
@@ -50,7 +50,7 @@ class Product(CoreModel):
         related_name="products",
         verbose_name=_("Category"),
     )
-    name = models.CharField(max_length=255, unique=True, verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
     description = models.TextField(blank=True, verbose_name=_("Description"))
     is_boycotted = models.BooleanField(default=False, verbose_name=_("Is boycotted"))
     boycott_reason = models.ForeignKey(
