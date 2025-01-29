@@ -34,7 +34,7 @@ source_dir = "/Users/kgz/Documents/media"  # Здесь находятся ор�
 destination_dir = "media/products/"  # Куда копировать с новым именем
 
 # Загрузка исходного JSON
-with open("product.json", "r", encoding="utf-8") as file:
+with open("apps/product/fixtures/product.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 # Преобразование структуры данных
