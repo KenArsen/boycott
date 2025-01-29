@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Добро пожаловать на платформу бойкота!</h1>
+        <p class="lead">
+            Мы стремимся информировать пользователей о товарах, подлежащих бойкоту, и предлагать альтернативные решения.
+        </p>
+
+        <h2 class="mt-5">Почему бойкот?</h2>
+        <p>
+            Бойкот — это мощный инструмент, позволяющий выражать несогласие с политикой или действиями компаний.
+            Мы помогаем вам находить эти товары и заменять их на более этичные альтернативы.
+        </p>
+
+        <h2 class="mt-5">Последние бойкотированные товары</h2>
+        <div class="row">
+            {% for product in boycotted_products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                            <span class="badge bg-danger">Бойкот</span>
+                            <a href="{% url 'product:product-detail' product.pk %}" class="btn btn-primary mt-2">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Нет товаров в бойкоте.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
