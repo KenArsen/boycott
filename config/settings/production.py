@@ -3,6 +3,8 @@ from .base import *
 # Production-specific settings
 DEBUG = False
 
+DOMAIN = "http://localhost:8000"
+
 # Security settings
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["example.com"])
 CSRF_COOKIE_SECURE = True

@@ -1,11 +1,12 @@
 import uuid
 
+from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import gettext_lazy
 
-from apps.user.forms.invitation import InvitationForm
-from apps.user.models import Invitation, User
-from apps.user.services import EmailService
+from apps.account.forms.invitation import InvitationForm
+from apps.account.models import Invitation, User
+from apps.account.services import EmailService
 
 
 @admin.register(User)
@@ -58,6 +59,9 @@ class UserAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
 
 @admin.register(Invitation)
 class InvitationAdmin(admin.ModelAdmin):
@@ -72,8 +76,8 @@ class InvitationAdmin(admin.ModelAdmin):
             invitation_url = obj.get_invitation_url()
             EmailService.send_email(
                 subject="Ваше приглашение для регистрации",
-                template_name="user/invitation_send.html",
+                template_name="account/invitation_send.html",
                 recipient_list=[obj.email],
-                context={"invitation_url": invitation_url},
+                context={"invitation_url": settings.DOMAIN + invitation_url},
             )
         super().save_model(request, obj, form, change)

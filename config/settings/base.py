@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     #
     # local apps
     "apps.common.apps.CommonConfig",
-    "apps.user.apps.UserConfig",
+    "apps.account.apps.AccountConfig",
     "apps.product.apps.ProductConfig",
 ]
 
@@ -41,7 +41,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "account.User"
 
 TEMPLATES = [
     {
@@ -82,11 +82,11 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Boycott",
     "site_logo_classes": "img-circle",
     "welcome_sign": "Welcome to the Boycott Admin!",
-    "search_model": ["user.User", "product.Product"],
+    "search_model": ["account.User", "product.Product"],
     "user_avatar": None,
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Users", "model": "user.User", "url": "/admin/user/user/"},
+        {"name": "Users", "model": "account.User", "url": "/admin/account/account/"},
         {
             "name": "Products",
             "model": "product.Product",
@@ -97,13 +97,13 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": True,
     "hide_apps": [],
     "hide_models": [],
-    "order_with_respect_to": ["user"],
+    "order_with_respect_to": ["account"],
     "icons": {
         # Users
-        "user": "fas fa-users-cog",
-        "user.User": "fas fa-user",
+        "account": "fas fa-users-cog",
+        "account.User": "fas fa-user",
         "auth.Group": "fas fa-users",
-        "user.Invitation": "fas fa-envelope-open-text",
+        "account.Invitation": "fas fa-envelope-open-text",
         # Sites
         "sites.Site": "fas fa-globe",
         # Products
@@ -119,7 +119,7 @@ JAZZMIN_SETTINGS = {
     "show_ui_builder": False,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
-        "auth.user": "collapsible",
+        "auth.account": "collapsible",
         "auth.group": "vertical_tabs",
     },
     "language_chooser": True,
@@ -165,11 +165,11 @@ SITE_ID = env.int("SITE_ID", default=1)
 # Static files settings
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Media files settings
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-
 
 LOCALE_PATHS = [BASE_DIR / "locale/"]
 

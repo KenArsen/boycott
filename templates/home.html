@@ -1,37 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Добро пожаловать на платформу бойкота!</h1>
-        <p class="lead">
-            Мы стремимся информировать пользователей о товарах, подлежащих бойкоту, и предлагать альтернативные решения.
-        </p>
-
-        <h2 class="mt-5">Почему бойкот?</h2>
-        <p>
-            Бойкот — это мощный инструмент, позволяющий выражать несогласие с политикой или действиями компаний.
-            Мы помогаем вам находить эти товары и заменять их на более этичные альтернативы.
-        </p>
-
-        <h2 class="mt-5">Последние бойкотированные товары</h2>
-        <div class="row">
-            {% for product in boycotted_products %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text">{{ product.description|truncatewords:15 }}</p>
-                            <span class="badge bg-danger">Бойкот</span>
-                            <a href="{% url 'product:product-detail' product.pk %}" class="btn btn-primary mt-2">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            {% empty %}
-                <p>Нет товаров в бойкоте.</p>
-            {% endfor %}
+    <!-- Поисковая строка -->
+    <section id="search" class="search-section">
+        <div class="container">
+            <h2>Найдите товар и его кыргызскую альтернативу</h2>
+            <form class="search-form">
+                <input type="text" placeholder="Введите название товара..." aria-label="Поиск товара">
+                <button type="submit">Найти</button>
+            </form>
+            <p class="or-divider">Или</p>
+            <form class="image-search-form">
+                <label for="image-upload" class="upload-label">
+                    <span>Загрузите изображение товара</span>
+                    <input type="file" id="image-upload" accept="image/*" aria-label="Загрузить изображение">
+                </label>
+                <button type="submit">Искать по изображению</button>
+            </form>
         </div>
-    </div>
+    </section>
+
+    <!-- Категории товаров -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <h2>Категории</h2>
+            <div class="categories-grid">
+                {% for category in categories %}
+                    <div class="category-card">
+                        <h3>{{ category.name }}</h3>
+                        <p>{{ category.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- О проекте -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>О проекте</h2>
+            <p>Boycott помогает находить кыргызские альтернативы товарам, поддерживая местных производителей.</p>
+        </div>
+    </section>
 {% endblock %}

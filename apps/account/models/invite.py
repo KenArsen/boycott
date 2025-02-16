@@ -14,4 +14,4 @@ class Invitation(models.Model):
         return self.email
 
     def get_invitation_url(self):
-        return reverse("user:registration-with-invite", kwargs={"code": self.code})
+        return reverse("account:registration-with-invite", kwargs={"code": self.code})

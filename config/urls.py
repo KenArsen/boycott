@@ -9,7 +9,7 @@ urlpatterns = [
     path("", home_view, name="home"),
     path("admin/", admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
-    path("users/", include("apps.user.urls", namespace="user")),
+    path("accounts/", include("apps.account.urls", namespace="account")),
     path("products/", include("apps.product.urls", namespace="product")),
 ]
 

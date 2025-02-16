@@ -1,8 +1,8 @@
 from django.urls import path
 
-from apps.user.views.register_by_invitation import RegisterByInvitationView
+from apps.account.views.register_by_invitation import RegisterByInvitationView
 
-app_name = "user"
+app_name = "account"
 
 urlpatterns = [
     path(

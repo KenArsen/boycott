@@ -1,6 +1,6 @@
 [
   {
-    "model": "user.user",
+    "model": "account.user",
     "pk": "b10e04fd-8d0d-4322-8862-2d39dc96aae4",
     "fields": {
       "password": "pbkdf2_sha256$870000$tPDnJzy07eKMmllyherpQe$ib0X+YYAgV9R5yF2NQGdR6ikp0n3XqZ+xP8ve30GoC4=",

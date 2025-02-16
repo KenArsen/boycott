@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.account.models import User
 from apps.common.models import CoreModel
-from apps.user.models import User
 
 
 def product_image_upload_path(instance, filename):
@@ -18,6 +18,7 @@ class Category(CoreModel):
         max_length=255, unique=True, verbose_name=_("Category name")
     )
     slug = models.SlugField(unique=True, verbose_name=_("Category slug"))
+    description = models.TextField(blank=True, verbose_name=_("Description"))
 
     class Meta:
         verbose_name = _("Category")

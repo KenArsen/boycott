@@ -2,13 +2,13 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.account.choices import RoleChoices
 from apps.common.models import CoreModel
-from apps.user.choices import RoleChoices
 
 
 class UserManager(BaseUserManager):
     """
-    Custom user manager that defines methods for creating regular users
+    Custom account manager that defines methods for creating regular users
     and superusers.
     """
 

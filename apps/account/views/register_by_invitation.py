@@ -4,12 +4,12 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 
-from apps.user.forms.registration import RegistrationForm
-from apps.user.models import Invitation
+from apps.account.forms.registration import RegistrationForm
+from apps.account.models import Invitation
 
 
 class RegisterByInvitationView(FormView):
-    template_name = "user/registration.html"
+    template_name = "account/registration.html"
     form_class = RegistrationForm
     success_url = reverse_lazy("admin:index")
 
