@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
+
+{% block title %}Главная - Boycott{% endblock %}
 
 {% block content %}
     <!-- Поисковая строка -->
@@ -6,7 +8,7 @@
         <div class="container">
             <h2>Найдите товар и его кыргызскую альтернативу</h2>
             <form class="search-form">
-                <input type="text" placeholder="Введите название товара..." aria-label="Поиск товара">
+                <input type="text" placeholder="Введите название товара..." aria-label="Поиск товара" required>
                 <button type="submit">Найти</button>
             </form>
             <p class="or-divider">Или</p>
@@ -30,6 +32,8 @@
                         <h3>{{ category.name }}</h3>
                         <p>{{ category.description }}</p>
                     </div>
+                {% empty %}
+                    <p>Категории пока отсутствуют.</p>
                 {% endfor %}
             </div>
         </div>

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Boycott – сайт, помогающий находить кыргызские альтернативы товарам, поддерживая местных производителей.">
+    <title>{% block title %}Boycott - Кыргызские альтернативы{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+
+<!-- Шапка -->
+{% include "includes/header.html" %}
+
+<!-- Основной контент -->
+<main class="main">
+    {% block content %}
+        <!-- Содержимое страницы -->
+    {% endblock %}
+</main>
+
+<!-- Подвал -->
+{% include "includes/footer.html" %}
+
+</body>
+</html>
