@@ -148,3 +148,11 @@ body {
     text-align: center;
     padding: 20px 0;
 }
+
+.card-img-top {
+    width: 100%; /* Растягивает изображение по ширине карточки */
+    height: 200px; /* Фиксированная высота */
+    object-fit: cover; /* Сохраняет пропорции, обрезая края */
+    border-top-left-radius: 10px; /* Округляет верхние углы */
+    border-top-right-radius: 10px;
+}
