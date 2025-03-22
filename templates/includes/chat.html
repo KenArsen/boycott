@@ -1,0 +1,20 @@
+<div class="chat-container">
+    <div class="chat-messages" id="chat-messages">
+        <div class="message ai-message">
+            Здравствуйте! Я ваш AI-ассистент. Я могу помочь найти информацию о бойкотируемых товарах и предложить
+            альтернативы. Что вас интересует?
+        </div>
+        {% for message in chat_messages %}
+            <div class="message {% if message.is_user %}user-message{% else %}ai-message{% endif %}">
+                {{ message.text }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="chat-input">
+        <form id="chat-form" method="post" action="{% url 'chat_message' %}">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Задайте ваш вопрос..." required>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>

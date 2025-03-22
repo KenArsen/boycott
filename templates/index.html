@@ -1,49 +1,72 @@
-{% extends "layouts/base.html" %}
+{% extends 'layouts/base.html' %}
 
-{% block title %}Главная - Boycott{% endblock %}
+{% block title %}Главная - Boycott Products Platform{% endblock %}
 
 {% block content %}
-    <!-- Поисковая строка -->
-    <section id="search" class="search-section">
+    <!-- Hero секция -->
+    <section class="hero">
         <div class="container">
-            <h2>Найдите товар и его кыргызскую альтернативу</h2>
-            <form class="search-form">
-                <input type="text" placeholder="Введите название товара..." aria-label="Поиск товара" required>
-                <button type="submit">Найти</button>
-            </form>
-            <p class="or-divider">Или</p>
-            <form class="image-search-form">
-                <label for="image-upload" class="upload-label">
-                    <span>Загрузите изображение товара</span>
-                    <input type="file" id="image-upload" accept="image/*" aria-label="Загрузить изображение">
-                </label>
-                <button type="submit">Искать по изображению</button>
-            </form>
+            <h1>Помогаем делать осознанный выбор</h1>
+            <p>Найдите информацию о бойкотируемых товарах и качественные местные альтернативы</p>
+            <a href="{% url 'about' %}" class="btn btn-primary">Узнать больше</a>
         </div>
     </section>
 
-    <!-- Категории товаров -->
-    <section id="categories" class="categories-section">
+    <!-- Поисковая форма -->
+    <section>
         <div class="container">
-            <h2>Категории</h2>
-            <div class="categories-grid">
-                {% for category in categories %}
-                    <div class="category-card">
-                        <h3>{{ category.name }}</h3>
-                        <p>{{ category.description }}</p>
-                    </div>
+            {% include 'includes/search.html' %}
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Категории</h2>
+            {% include 'includes/categories.html' %}
+        </div>
+    </section>
+
+    <!-- Бойкотируемые продукты -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Бойкотируемые продукты</h2>
+            <div class="products-grid">
+                {% for product in boycotted_products %}
+                    {% include 'includes/product_card.html' with product=product %}
                 {% empty %}
-                    <p>Категории пока отсутствуют.</p>
+                    <p>Нет бойкотируемых продуктов.</p>
                 {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- О проекте -->
-    <section id="about" class="about-section">
+    <!-- Альтернативные продукты -->
+    <section style="background-color: var(--gray-color);">
         <div class="container">
-            <h2>О проекте</h2>
-            <p>Boycott помогает находить кыргызские альтернативы товарам, поддерживая местных производителей.</p>
+            <h2 class="section-title">Альтернативные местные продукты</h2>
+            <div class="products-grid">
+                {% for product in alternative_products %}
+                    {% include 'includes/product_card.html' with product=product %}
+                {% empty %}
+                    <p>Нет альтернативных продуктов.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Информационные блоки -->
+    <section>
+        <div class="container">
+            {% include 'includes/info_blocks.html' %}
+        </div>
+    </section>
+
+    <!-- AI Чат -->
+    <section class="ai-chat">
+        <div class="container">
+            <h2 class="section-title">Спросите AI-ассистента</h2>
+            {% include 'includes/chat.html' %}
         </div>
     </section>
 {% endblock %}

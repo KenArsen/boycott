@@ -1,5 +1,32 @@
-<footer class="footer">
+<!-- footer.html -->
+<footer>
     <div class="container">
-        <p>&copy; 2024 Boycott. Все права защищены.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Boycott Platform</h3>
+                <p>Платформа для осознанного выбора товаров на основе этических и политических критериев.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Ссылки</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'boycotted_products' %}">Бойкоты</a></li>
+                    <li><a href="{% url 'alternative_products' %}">Альтернативы</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul class="footer-links">
+                    <li>Email: info@boycott-platform.com</li>
+                    <li>Телефон: +996 (XXX) XXX-XXX</li>
+                    <li>Адрес: г. Бишкек, ул. Примерная, 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; {% now "Y" %} Boycott Platform. Все права защищены.</p>
+        </div>
     </div>
 </footer>

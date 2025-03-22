@@ -1,0 +1,121 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ product.name }} - Boycott Products Platform{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="product-detail">
+                <div class="product-detail-header">
+                    <div class="product-detail-image">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="product-detail-info">
+                        <h1>{{ product.name }}</h1>
+                        <p class="product-category">Категория: <a
+                                href="{% url 'category_detail' product.category.slug %}">{{ product.category.name }}</a>
+                        </p>
+
+                        {% if product.is_boycotted %}
+                            <div class="boycott-info">
+                                <span class="product-boycott">Бойкотируется</span>
+                                <h3>Причина бойкота:</h3>
+                                <h4>{{ product.boycott_reason.title }}</h4>
+                                <div class="boycott-description">
+                                    {{ product.boycott_reason.description|linebreaks }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="rating-info">
+                                <h3>Рейтинг:</h3>
+                                <p>{% include 'includes/star_rating.html' with rating=product.get_rating %}
+                                    ({{ product.get_rating|floatformat:1 }}/5)</p>
+
+                                {% if product.is_kyrgyz_product %}
+                                    <div class="kyrgyz-product-badge">
+                                        Местный продукт 🇰🇬
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <div class="product-description">
+                            <h3>Описание:</h3>
+                            <p>{{ product.description|linebreaks }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if product.is_boycotted and product.alternative_products.exists %}
+                    <div class="alternatives-section" id="alternatives">
+                        <h2>Альтернативы</h2>
+                        <div class="products-grid">
+                            {% for alt_product in product.alternative_products.all %}
+                                {% include 'includes/product_card.html' with product=alt_product %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="reviews-section">
+                    <h2>Отзывы ({{ product.reviews.count }})</h2>
+
+                    {% if user.is_authenticated %}
+                        <div class="review-form">
+                            <h3>Оставить отзыв</h3>
+                            <form method="post" action="{% url 'add_review' product.id %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="rating">Рейтинг:</label>
+                                    <select name="rating" id="rating" required>
+                                        <option value="5">5 - Отлично</option>
+                                        <option value="4">4 - Хорошо</option>
+                                        <option value="3">3 - Нормально</option>
+                                        <option value="2">2 - Плохо</option>
+                                        <option value="1">1 - Ужасно</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment">Комментарий:</label>
+                                    <textarea name="comment" id="comment" rows="4"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить отзыв.</p>
+                    {% endif %}
+
+                    <div class="reviews-list">
+                        {% for review in product.reviews.all %}
+                            <div class="review-card">
+                                <div class="review-header">
+                                <span class="review-author">
+                                    {% if review.user %}
+                                        {{ review.user.username }}
+                                    {% else %}
+                                        Анонимный пользователь
+                                    {% endif %}
+                                </span>
+                                    <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+                                </div>
+                                <div class="review-rating">
+                                    {% include 'includes/star_rating.html' with rating=review.rating %}
+                                </div>
+                                <div class="review-comment">
+                                    {{ review.comment|linebreaks }}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>Отзывов пока нет.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

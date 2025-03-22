@@ -1,0 +1,10 @@
+<!-- Поисковая форма -->
+<div class="search-box">
+    <h2 class="section-title">Поиск товаров</h2>
+    <form class="search-form" action="{% url 'search' %}" method="GET">
+        <label>
+            <input type="text" name="q" class="search-input" placeholder="Введите название товара или бренда...">
+        </label>
+        <button type="submit" class="search-btn">Поиск</button>
+    </form>
+</div>

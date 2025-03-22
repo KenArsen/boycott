@@ -1,0 +1,30 @@
+<!-- product_card.html -->
+<div class="product-card">
+    <div class="product-img">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+    <div class="product-info">
+        <h3 class="product-title">{{ product.name }}</h3>
+        <p class="product-category">Категория: {{ product.category.name }}</p>
+
+        {% if product.is_boycotted %}
+            <span class="product-boycott">Бойкотируется</span>
+            <p>Причина: {{ product.boycott_reason.title }}</p>
+            {% if product.alternative_products.exists %}
+                <p class="product-alternatives">
+                    <a href="{% url 'product_detail' product.id %}#alternatives">Показать альтернативы</a>
+                </p>
+            {% endif %}
+        {% else %}
+            <p>Рейтинг: {% include 'includes/star_rating.html' with rating=product.get_rating %}
+                ({{ product.get_rating|floatformat:1 }}/5)</p>
+            {% if product.is_kyrgyz_product %}
+                <p>Местный производитель</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

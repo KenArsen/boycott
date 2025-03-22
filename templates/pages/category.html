@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ category.name }} - Boycott Products Platform{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <h1 class="section-title">{{ category.name }}</h1>
+
+            {% if category.description %}
+                <div class="category-description">
+                    {{ category.description|linebreaks }}
+                </div>
+            {% endif %}
+
+            <!-- Поисковая форма -->
+            <div class="search-box">
+                <form class="search-form" action="{% url 'category_detail' category.slug %}" method="GET">
+                    <input type="text" name="q" class="search-input" placeholder="Поиск по категории...">
+                    <button type="submit" class="search-btn">Поиск</button>
+                </form>
+            </div>
+
+            <!-- Фильтры -->
+            <div class="filter-options">
+                <form method="GET" action="{% url 'category_detail' category.slug %}">
+                    <div class="filter-group">
+                        <label>
+                            <input type="checkbox" name="boycotted" {% if request.GET.boycotted %}checked{% endif %}>
+                            Только бойкотируемые
+                        </label>
+                    </div>
+                    <div class="filter-group">
+                        <label>
+                            <input type="checkbox" name="local" {% if request.GET.local %}checked{% endif %}>
+                            Только местные
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Применить фильтры</button>
+                </form>
+            </div>
+
+            <div class="products-grid">
+                {% for product in products %}
+                    {% include 'includes/product_card.html' with product=product %}
+                {% empty %}
+                    <p>Продукты не найдены.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if products.has_other_pages %}
+                <div class="pagination">
+                    {% if products.has_previous %}
+                        <a href="?page=1
+                                {% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;
+                            Первая</a>
+                        <a href="?page=
+                                {{ products.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Предыдущая</a>
+                    {% endif %}
+
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                            <span class="current-page">{{ i }}</span>
+                        {% elif i > products.number|add:'-3' and i < products.number|add:'3' %}
+                            <a href="?page=
+                                    {{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if products.has_next %}
+                        <a href="?page=
+                                {{ products.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Следующая</a>
+                        <a href="?page=
+                                {{ products.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Последняя
+                            &raquo;</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
