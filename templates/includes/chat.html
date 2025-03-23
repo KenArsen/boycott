@@ -11,10 +11,10 @@
         {% endfor %}
     </div>
     <div class="chat-input">
-        <form id="chat-form" method="post" action="{% url 'chat_message' %}">
-            {% csrf_token %}
-            <input type="text" name="message" placeholder="Задайте ваш вопрос..." required>
-            <button type="submit">Отправить</button>
-        </form>
+{#        <form id="chat-form" method="post" action="{% url 'chat_message' %}">#}
+{#            {% csrf_token %}#}
+{#            <input type="text" name="message" placeholder="Задайте ваш вопрос..." required>#}
+{#            <button type="submit">Отправить</button>#}
+{#        </form>#}
     </div>
 </div>

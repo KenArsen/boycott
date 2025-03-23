@@ -145,6 +145,30 @@ section {
 
 .search-form {
     display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.search-group, .filter-group, .sort-group {
+    width: 100%;
+}
+
+.search-form label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.search-form label span {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.input-with-button {
+    display: flex;
     width: 100%;
 }
 
@@ -156,6 +180,25 @@ section {
     font-size: 1rem;
 }
 
+.search-form select {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    height: 42px;
+    margin-bottom: 0.8rem;
+}
+
+.search-form select:focus,
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
 .search-btn {
     background-color: var(--primary-color);
     color: white;
@@ -163,6 +206,28 @@ section {
     padding: 0 1.5rem;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.filter-btn, .sort-btn {
+    background-color: #607d8b; /* Другой цвет для кнопок фильтра и сортировки */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.filter-btn:hover, .sort-btn:hover {
+    background-color: #455a64;
+}
+
+.search-btn:hover {
+    background-color: #1b5e20;
 }
 
 /* Карточки продуктов */
@@ -458,19 +523,21 @@ footer {
     .nav-links li {
         margin: 0.5rem;
     }
+    /* Адаптивность для формы */
 
     .search-form {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
-    .search-input, .search-btn {
-        border-radius: var(--border-radius);
-        width: 100%;
+    .search-group {
+        flex: 2;
+        min-width: 300px;
     }
 
-    .search-btn {
-        margin-top: 0.5rem;
-        padding: 0.8rem;
+    .filter-group, .sort-group {
+        flex: 1;
+        min-width: 200px;
     }
 
     .hero h1 {

@@ -4,7 +4,7 @@
         {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
         {% else %}
-            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+{#            <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">#}
         {% endif %}
     </div>
     <div class="product-info">
@@ -16,7 +16,7 @@
             <p>Причина: {{ product.boycott_reason.title }}</p>
             {% if product.alternative_products.exists %}
                 <p class="product-alternatives">
-                    <a href="{% url 'product_detail' product.id %}#alternatives">Показать альтернативы</a>
+{#                    <a href="{% url 'product_detail' product.id %}#alternatives">Показать альтернативы</a>#}
                 </p>
             {% endif %}
         {% else %}

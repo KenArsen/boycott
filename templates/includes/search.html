@@ -1,10 +1,66 @@
-<!-- Поисковая форма -->
+<!-- Поисковая форма с элементами на одной линии -->
 <div class="search-box">
     <h2 class="section-title">Поиск товаров</h2>
-    <form class="search-form" action="{% url 'search' %}" method="GET">
-        <label>
-            <input type="text" name="q" class="search-input" placeholder="Введите название товара или бренда...">
-        </label>
-        <button type="submit" class="search-btn">Поиск</button>
+    <form class="search-form" action="" method="GET">
+        <div style="display: flex; gap: 1rem; align-items: flex-end;">
+            <!-- Поле поиска -->
+            <div class="search-group" style="flex: 3;">
+                <label>
+                    <span>Поиск по названию</span>
+                    <input type="text" name="search" class="search-input"
+                           placeholder="Введите название товара или бренда..." value="{{ search_query }}"
+                           style="border-radius: var(--border-radius);">
+                </label>
+            </div>
+
+            <!-- Фильтр по категории -->
+            <div class="filter-group" style="flex: 2;">
+                <label>
+                    <span>Категория</span>
+                    <select name="category" id="category-select">
+                        <option value="">Все категории</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}"
+                                    {% if selected_category|stringformat:"s" == category.id|stringformat:"s" %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+            <!-- Сортировка -->
+            <div class="sort-group" style="flex: 2;">
+                <label>
+                    <span>Сортировка</span>
+                    <select name="sort" id="sort-select">
+                        <option value="created_at" {% if sort_by == "created_at" %}selected{% endif %}>
+                            По дате добавления
+                        </option>
+                        <option value="rating" {% if sort_by == "rating" %}selected{% endif %}>По рейтингу</option>
+                    </select>
+                </label>
+            </div>
+
+            <!-- Единая кнопка поиска -->
+            <div style="align-self: flex-end;">
+                <button type="submit" class="search-btn" style="height: 42px; border-radius: var(--border-radius);">Поиск</button>
+            </div>
+        </div>
     </form>
 </div>
+
+<script>
+    // Автоматически отправляем форму при изменении сортировки или категории
+    document.getElementById('category-select').addEventListener('change', function() {
+        // При необходимости можно сбросить страницу на первую
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('page', '1');
+        // Отправляем форму
+        this.form.submit();
+    });
+
+    document.getElementById('sort-select').addEventListener('change', function() {
+        this.form.submit();
+    });
+</script>
