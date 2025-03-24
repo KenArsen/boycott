@@ -1,11 +1,11 @@
 <!-- Категории -->
 <div class="category-list">
     <div class="category-item {% if not selected_category %}active{% endif %}">
-{#        <a href="{% url 'categories' %}">Все</a>#}
+        <a href="{% url 'product:category-list' %}">Все</a>
     </div>
     {% for category in categories %}
         <div class="category-item {% if selected_category.id == category.id %}active{% endif %}">
-{#            <a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a>#}
+            <a href="{% url 'product:category-detail' category.slug %}">{{ category.name }}</a>
         </div>
     {% endfor %}
 </div>
