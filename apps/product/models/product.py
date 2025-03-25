@@ -78,6 +78,7 @@ class Product(CoreModel):
     class Meta:
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
+        ordering = ["-updated_at"]
 
     def __str__(self):
         return self.name
