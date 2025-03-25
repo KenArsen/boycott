@@ -454,60 +454,6 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Админ-панель */
-.admin-panel {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-}
-
-.admin-tabs {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 2rem;
-}
-
-.admin-tab {
-    padding: 0.8rem 1.5rem;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-}
-
-.admin-tab.active {
-    border-bottom: 2px solid var(--primary-color);
-    color: var(--primary-color);
-}
-
-.admin-content {
-    padding: 1rem 0;
-}
-
-.admin-form-group {
-    margin-bottom: 1.5rem;
-}
-
-.admin-form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.admin-input, .admin-textarea, .admin-select {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-}
-
-.admin-textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
 /* Адаптивность */
 @media (max-width: 768px) {
     nav {
