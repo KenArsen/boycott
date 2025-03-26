@@ -57,7 +57,7 @@
 
 3. Установка Poetry (Linux/MacOS):
    ```bash
-   curl -sSL https://install.python-poetry.org | python3 -
+   curl -sSL https://install.python-poetry.org | python3 - --version 1.8.4
    ```
 
 4. Экспорт пути (если требуется)
