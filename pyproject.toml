@@ -6,7 +6,7 @@ authors = ["KenArsen <kenzhegulov.kgz@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.10 || ^3.12 || ^3.13"
 django = "^5.1.4"
 pillow = "^11.0.0"
 django-jazzmin = "^3.0.1"
