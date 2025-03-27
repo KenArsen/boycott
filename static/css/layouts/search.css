@@ -1,0 +1,96 @@
+/* Поисковая форма */
+.search-box {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.search-group, .filter-group, .sort-group {
+    width: 100%;
+}
+
+.search-form label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.search-form label span {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.input-with-button {
+    display: flex;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-size: 1rem;
+}
+
+.search-form select {
+    padding: 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    width: 100%;
+    background-color: white;
+    cursor: pointer;
+    height: 42px;
+    /*margin-bottom: 0.8rem;*/
+}
+
+.search-form select:focus,
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.search-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.filter-btn, .sort-btn {
+    background-color: #607d8b; /* Другой цвет для кнопок фильтра и сортировки */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.filter-btn:hover, .sort-btn:hover {
+    background-color: #455a64;
+}
+
+.search-btn:hover {
+    background-color: #1b5e20;
+}

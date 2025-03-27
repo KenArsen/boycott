@@ -20,7 +20,7 @@ class HomeView(TemplateView):
             queryset = queryset.filter(name__icontains=search_query)
 
         # Настройка пагинации
-        paginator = Paginator(queryset, 10)  # 10 элементов на страницу
+        paginator = Paginator(queryset, 12)  # 10 элементов на страницу
         page = self.request.GET.get("page")
 
         try:

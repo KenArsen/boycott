@@ -1,0 +1,32 @@
+/* Секция категорий */
+.categories {
+    margin-top: 2rem;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.category-item {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 1);
+}
+
+.category-item:hover, .category-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.category-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
