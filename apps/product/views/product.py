@@ -6,7 +6,7 @@ from apps.product.models import Product
 
 class ProductListView(CategoryMixin, ListView):
     model = Product
-    template_name = "product/product_list.html"
+    template_name = ""
     context_object_name = "products"
     paginate_by = 10
 
@@ -16,7 +16,7 @@ class ProductListView(CategoryMixin, ListView):
 
 class ProductDetailView(CategoryMixin, DetailView):
     model = Product
-    template_name = "product/product_detail.html"
+    template_name = ""
     context_object_name = "product"
 
     def get_context_data(self, **kwargs):
