@@ -12,22 +12,22 @@ class UserManager(BaseUserManager):
     and superusers.
     """
 
-    def create_user(self, email, password=None):
+    def create_user(
+        self, email, password=None, role=RoleChoices.MODERATOR, **extra_fields
+    ):
         if not email:
-            raise ValueError("The Email field must be set")
+            raise ValueError(_("The Email field must be set"))
         email = self.normalize_email(email)
-        user = self.model(email=email)
+        user = self.model(email=email, role=role, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
-        user = self.create_user(email=email, password=password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.role = RoleChoices.ADMIN
-        user.save(using=self._db)
-        return user
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("role", RoleChoices.ADMIN)
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(CoreModel, AbstractUser):
@@ -67,3 +67,9 @@ class User(CoreModel, AbstractUser):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def is_admin(self):
+        return self.role == RoleChoices.ADMIN
+
+    def is_moderator(self):
+        return self.role == RoleChoices.MODERATOR

@@ -2,6 +2,10 @@ import uuid
 
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+
+from apps.account.choices import RoleChoices
+from apps.account.models.user import User
 
 
 class Invitation(models.Model):
@@ -9,9 +13,22 @@ class Invitation(models.Model):
     code = models.UUIDField(default=uuid.uuid4, editable=False)
     is_used = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    role = models.CharField(
+        max_length=20,
+        choices=RoleChoices,
+        default=RoleChoices.MODERATOR,
+        verbose_name=_("Role"),
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Registered User"),
+    )
 
     def __str__(self):
-        return self.email
+        return f"{self.email} ({self.role})"
 
     def get_invitation_url(self):
         return reverse("account:registration-with-invite", kwargs={"code": self.code})
