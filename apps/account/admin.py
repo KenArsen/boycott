@@ -8,13 +8,18 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.account.choices import RoleChoices
 from apps.account.forms.invitation import InvitationForm
-from apps.account.models import Invitation, User
+from apps.account.models import Invitation, Role, User
 from apps.account.services import EmailService
+
+
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    # Поля для отображения при редактировании
     fieldsets = (
         (None, {"fields": ("email", "password", "role")}),
         (
@@ -36,7 +41,6 @@ class UserAdmin(admin.ModelAdmin):
         (_("Important dates"), {"fields": ("last_login", "created_at", "updated_at")}),
     )
 
-    # Поля для добавления нового пользователя
     add_fieldsets = (
         (
             None,
@@ -47,7 +51,6 @@ class UserAdmin(admin.ModelAdmin):
         ),
     )
 
-    # Отображение в списке
     list_display = (
         "email",
         "first_name",
@@ -119,7 +122,7 @@ class InvitationAdmin(admin.ModelAdmin):
     def user_link(self, obj):
         """Ссылка на зарегистрированного пользователя"""
         if obj.user:
-            url = reverse("admin:account_user_change", args=[obj.user.id])
+            url = reverse("admin:account_user_change", args=[obj.user.pk])
             return mark_safe(f'<a href="{url}">{obj.user.email}</a>')
         return "-"
 
@@ -150,9 +153,7 @@ class InvitationAdmin(admin.ModelAdmin):
                 template_name="account/invitation_send.html",
                 context={"invitation_url": invitation_url, "role": invitation.role},
             )
-        self.message_user(
-            request, _(f"Invitations resent to {queryset.count()} users.")
-        )
+        self.message_user(request, _(f"Invitations resent to {queryset.count()} users."))
 
     resend_invitation.short_description = _("Resend selected invitations")
 

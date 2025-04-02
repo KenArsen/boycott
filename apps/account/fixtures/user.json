@@ -1,23 +1,23 @@
 [
-  {
+{
     "model": "account.user",
-    "pk": "b10e04fd-8d0d-4322-8862-2d39dc96aae4",
+    "pk": "97a9cf77-f2d6-4ccf-8eea-3402dd20b4d4",
     "fields": {
-      "password": "pbkdf2_sha256$870000$tPDnJzy07eKMmllyherpQe$ib0X+YYAgV9R5yF2NQGdR6ikp0n3XqZ+xP8ve30GoC4=",
-      "last_login": "2025-01-28T17:08:24Z",
-      "is_superuser": true,
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2025-01-28T17:08:16.846Z",
-      "created_at": "2025-01-28T17:08:17.046Z",
-      "updated_at": "2025-01-28T17:09:03.377Z",
-      "role": "admin",
-      "email": "admin@gmail.com",
-      "first_name": "Admin",
-      "last_name": "Admin",
-      "phone_number": "0777777777",
-      "groups": [],
-      "user_permissions": []
+        "password": "pbkdf2_sha256$870000$gBDb34vVIXHY2rm0G9PJPm$JblIgTXdhap+sF246290lu3hIWEOx7CEsYioL3Vd57M=",
+        "last_login": null,
+        "is_superuser": true,
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-04-02T12:51:16.274Z",
+        "created_at": "2025-04-02T12:51:16.468Z",
+        "updated_at": "2025-04-02T12:51:16.468Z",
+        "role": 1,
+        "email": "admin@gmail.com",
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "phone_number": "0706484681",
+        "groups": [],
+        "user_permissions": []
     }
-  }
+}
 ]

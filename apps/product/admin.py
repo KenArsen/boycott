@@ -33,11 +33,7 @@ class ReasonAdmin(TranslationAdmin):
 
     def description_short(self, obj):
         """Укорачивает описание для отображения в списке"""
-        return (
-            obj.description[:50] + "..."
-            if len(obj.description) > 50
-            else obj.description
-        )
+        return obj.description[:50] + "..." if len(obj.description) > 50 else obj.description
 
     description_short.short_description = _("Description")
 
@@ -55,9 +51,7 @@ class AlternativeProductForm(forms.Form):
     target_product = forms.ModelChoiceField(
         queryset=Product.objects.all(),
         label=_("Alternative product"),
-        help_text=_(
-            "Selected products will be linked as alternatives to this product."
-        ),
+        help_text=_("Selected products will be linked as alternatives to this product."),
     )
 
 
@@ -113,6 +107,19 @@ class ProductAdmin(TranslationAdmin):
     # Кастомные действия
     actions = ["mark_as_boycotted", "mark_as_not_boycotted", "add_alternative_products"]
 
+    # Ограничение прав
+    def has_add_permission(self, request):
+        return request.user.is_superuser  # Только суперпользователи могут добавлять
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser  # Только суперпользователи могут удалять
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser or request.user.is_moderator()  # Модераторы могут редактировать
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser or request.user.is_moderator()  # Модераторы могут просматривать
+
     def mark_as_boycotted(self, request, queryset):
         """Массово помечает товары как бойкотируемые"""
         updated = queryset.update(is_boycotted=True)
@@ -125,9 +132,7 @@ class ProductAdmin(TranslationAdmin):
         updated = queryset.update(is_boycotted=False)
         self.message_user(request, _(f"Removed boycott mark from {updated} products."))
 
-    mark_as_not_boycotted.short_description = _(
-        "Remove boycott mark from selected products"
-    )
+    mark_as_not_boycotted.short_description = _("Remove boycott mark from selected products")
 
     def add_alternative_products(self, request, queryset):
         """Массово добавляет альтернативный товар"""
@@ -145,9 +150,7 @@ class ProductAdmin(TranslationAdmin):
                 for product in queryset:
                     if product != target_product:
                         product.alternative_products.add(target_product)
-                self.message_user(
-                    request, _(f"Alternatives added to {queryset.count()} products.")
-                )
+                self.message_user(request, _(f"Alternatives added to {queryset.count()} products."))
                 return
         form = AlternativeProductForm()
         return {
@@ -157,9 +160,7 @@ class ProductAdmin(TranslationAdmin):
             "action": "add_alternative_products",
         }
 
-    add_alternative_products.short_description = _(
-        "Add selected products as alternatives"
-    )
+    add_alternative_products.short_description = _("Add selected products as alternatives")
 
     def get_rating_display(self, obj):
         """Отображение рейтинга в списке"""

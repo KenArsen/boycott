@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from apps.account.choices import RoleChoices
-from apps.account.models.user import User
+from apps.account.models.user import Role, User
 
 
 class Invitation(models.Model):
@@ -13,9 +13,9 @@ class Invitation(models.Model):
     code = models.UUIDField(default=uuid.uuid4, editable=False)
     is_used = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    role = models.CharField(
-        max_length=20,
-        choices=RoleChoices,
+    role = models.ForeignKey(
+        to=Role,
+        on_delete=models.CASCADE,
         default=RoleChoices.MODERATOR,
         verbose_name=_("Role"),
     )
@@ -28,7 +28,7 @@ class Invitation(models.Model):
     )
 
     def __str__(self):
-        return f"{self.email} ({self.role})"
+        return f"{self.email} ({self.role.name})"
 
     def get_invitation_url(self):
         return reverse("account:registration-with-invite", kwargs={"code": self.code})
