@@ -1,22 +1,23 @@
 [
 {
     "model": "account.user",
-    "pk": "97a9cf77-f2d6-4ccf-8eea-3402dd20b4d4",
+    "pk": "cecae74a-cdbf-4f22-aa20-1a188b901ab5",
     "fields": {
-        "password": "pbkdf2_sha256$870000$gBDb34vVIXHY2rm0G9PJPm$JblIgTXdhap+sF246290lu3hIWEOx7CEsYioL3Vd57M=",
+        "password": "pbkdf2_sha256$870000$yptFB57ioHssPL18uAUvF6$4n/yYdiA9roDOttzShXWFPfuAMbh+UyoECNC8gk0fcY=",
         "last_login": null,
         "is_superuser": true,
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2025-04-02T12:51:16.274Z",
-        "created_at": "2025-04-02T12:51:16.468Z",
-        "updated_at": "2025-04-02T12:51:16.468Z",
-        "role": 1,
+        "date_joined": "2025-04-03T09:31:38.091Z",
+        "created_at": "2025-04-03T09:31:38.233Z",
+        "updated_at": "2025-04-03T09:31:38.233Z",
         "email": "admin@gmail.com",
-        "first_name": "Admin",
-        "last_name": "Admin",
-        "phone_number": "0706484681",
-        "groups": [],
+        "first_name": "",
+        "last_name": "",
+        "phone_number": "",
+        "groups": [
+            1
+        ],
         "user_permissions": []
     }
 }

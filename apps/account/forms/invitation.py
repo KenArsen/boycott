@@ -7,7 +7,7 @@ from apps.account.models import Invitation
 class InvitationForm(forms.ModelForm):
     class Meta:
         model = Invitation
-        fields = ["email", "role"]
+        fields = ["email", "group"]
 
     def clean_email(self):
         email = self.cleaned_data["email"]
