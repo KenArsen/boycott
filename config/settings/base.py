@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from django.conf.locale import LANG_INFO
@@ -166,10 +167,13 @@ LOCALE_PATHS = [BASE_DIR / "locale/"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Logging configuration
+
+LOG_DIR = BASE_DIR / "logs"
+os.makedirs(LOG_DIR, exist_ok=True)  # Создаём папку, если её нет
+
 LOGGING = {
     "version": 1,
-    "disable_existing_loggers": False,
+    "disable_existing_loggers": False,  # Позволяет Django продолжать логирование
     "formatters": {
         "verbose": {
             "format": "{levelname} {asctime} {module} {message}",
@@ -181,10 +185,16 @@ LOGGING = {
         },
     },
     "handlers": {
-        "file": {
+        "apps_file": {  # Лог-файл только для твоих логов
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": LOG_DIR / "apps.log",  # Новый файл
+            "formatter": "verbose",
+        },
+        "django_file": {  # Лог-файл отдельно для Django
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": BASE_DIR / "logs" / "django.log",
+            "filename": LOG_DIR / "django.log",
             "formatter": "verbose",
         },
         "console": {
@@ -195,12 +205,12 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ["file", "console"],
+            "handlers": ["django_file", "console"],  # Отдельный файл для Django
             "level": "INFO",
-            "propagate": True,
+            "propagate": False,  # Запрещаем передавать в другие логгеры
         },
         "apps": {
-            "handlers": ["file", "console"],
+            "handlers": ["apps_file", "console"],  # Только в `apps.log`
             "level": "DEBUG",
             "propagate": False,
         },
