@@ -1,13 +1,18 @@
+import logging
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import CoreModel
 
+logger = logging.getLogger("apps")
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, group_names=["User"], **extra_fields):
         if not email:
+            logger.error("Attempt to create user without email")
             raise ValueError("The Email field must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -16,12 +21,16 @@ class UserManager(BaseUserManager):
         for name in group_names:
             group, _ = Group.objects.get_or_create(name=name)
             user.groups.add(group)
+        logger.info(f"User {email} created with groups: {', '.join(group_names)}")
         return user
 
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        return self.create_user(email, password, ["Admin"], **extra_fields)
+        logger.debug(f"Creating superuser {email}")
+        user = self.create_user(email, password, ["Admin"], **extra_fields)
+        logger.info(f"Superuser {email} created successfully")
+        return user
 
 
 class User(CoreModel, AbstractUser):
@@ -53,4 +62,6 @@ class User(CoreModel, AbstractUser):
         return f"{self.first_name} {self.last_name}"
 
     def has_role(self, role_name):
-        return self.groups.filter(name=role_name).exists()
+        has_role = self.groups.filter(name=role_name).exists()
+        logger.debug(f"Checked role {role_name} for {self.email}: {has_role}")
+        return has_role

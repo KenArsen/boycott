@@ -1,8 +1,12 @@
+import logging
+
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
+
+logger = logging.getLogger("apps")
 
 
 class EmailService:
@@ -37,16 +41,13 @@ class EmailService:
             RuntimeError: Если отправка не удалась и fail_silently=False.
         """
         try:
-            # Устанавливаем отправителя
             from_email = from_email or getattr(settings, "EMAIL_HOST_USER", None)
             if not from_email:
                 raise ValueError(_("EMAIL_HOST_USER must be set in settings"))
 
-            # Рендерим HTML-версию письма
             html_message = render_to_string(template_name, context)
             plain_message = strip_tags(html_message)
 
-            # Создаем объект письма
             email = EmailMultiAlternatives(
                 subject=subject,
                 body=plain_message,
@@ -57,19 +58,22 @@ class EmailService:
             )
             email.attach_alternative(html_message, "text/html")
 
-            # Добавляем вложения, если есть
             if attachments:
                 for filename, content, mimetype in attachments:
                     email.attach(filename, content, mimetype)
 
-            # Отправляем письмо
             email.send(fail_silently=fail_silently)
+            logger.info(f"Email sent to {recipient_list} with subject '{subject}'")
+
         except FileNotFoundError as e:
             error_msg = _(f"Template '{template_name}' not found: {str(e)}")
+            logger.error(error_msg)
             if not fail_silently:
                 raise RuntimeError(error_msg)
+
         except Exception as e:
             error_msg = _(f"Failed to send email: {str(e)}")
+            logger.error(error_msg)
             if not fail_silently:
                 raise RuntimeError(error_msg)
 
@@ -88,5 +92,7 @@ class EmailService:
             "invitation_url": f"{settings.DOMAIN}{invitation.get_invitation_url()}",
             "group": invitation.group.name,
         }
+
+        logger.info(f"Sending invitation email to {invitation.email}")
 
         cls.send_email(subject, recipient_list, template_name, context)

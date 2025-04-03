@@ -1,7 +1,6 @@
 import uuid
 
 from django.contrib import admin
-from django.contrib.auth.admin import GroupAdmin as DefaultGroupAdmin
 from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.utils.html import mark_safe
@@ -11,16 +10,15 @@ from apps.account.forms.invitation import InvitationForm
 from apps.account.models import Invitation, User
 from apps.common.services.email import EmailService
 
+# Отменяем стандартную регистрацию
+admin.site.unregister(Group)
+
 
 # Переопределяем стандартный GroupAdmin
-class GroupAdmin(DefaultGroupAdmin):
+@admin.register(Group)
+class GroupAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
-
-
-# Отменяем стандартную регистрацию и регистрируем свою
-admin.site.unregister(Group)
-admin.site.register(Group, GroupAdmin)
 
 
 @admin.register(User)

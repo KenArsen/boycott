@@ -1,7 +1,7 @@
+import logging
 import uuid
 from datetime import timedelta
 
-from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.urls import reverse
@@ -9,6 +9,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.account.models import User
+
+logger = logging.getLogger("apps")
 
 
 def default_expiration():
@@ -57,25 +59,16 @@ class Invitation(models.Model):
         return reverse("account:registration-with-invite", kwargs={"code": self.code})
 
     def is_expired(self):
-        return timezone.now() > self.expires_at
+        expired = timezone.now() > self.expires_at
+        logger.debug(f"Checking if invitation {self.code} is expired: {expired}")
+        return expired
 
     def is_valid(self):
-        return not self.is_used and not self.is_expired()
+        valid = not self.is_used and not self.is_expired()
+        logger.debug(f"Checking if invitation {self.code} is valid: {valid}")
+        return valid
 
     def mark_as_used(self):
         self.is_used = True
         self.save(update_fields=["is_used"])
-
-    @classmethod
-    def create_invitation(cls, email, group_name="User"):
-        group, _ = Group.objects.get_or_create(name=group_name)
-        return cls.objects.create(email=email, group=group)
-
-    def send_invitation_email(self):
-        from django.core.mail import send_mail
-
-        subject = _("Your Invitation")
-        message = (
-            f"Use this link to register: {settings.SITE_URL}{self.get_invitation_url()}"
-        )
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [self.email])
+        logger.info(f"Invitation {self.code} marked as used for {self.email}")
