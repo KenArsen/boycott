@@ -1,2 +1,2 @@
+from .user import User
 from .invite import Invitation
-from .user import Role, User

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+            margin: 0;
+            padding: 0;
         }
         .container {
             max-width: 600px;
@@ -44,7 +46,7 @@
         <p>{% trans "Hello," %}</p>
         <p>
             {% trans "You have been invited to join our platform as a" %}
-            <strong>{% if role == 'admin' %}{% trans "Administrator" %}{% elif role == 'moderator' %}{% trans "Moderator" %}{% else %}{% trans "User" %}{% endif %}</strong>.
+            <strong>{{ group|capfirst }}</strong>.
             {% trans "Please use the link below to complete your registration:" %}
         </p>
         <p>
@@ -66,7 +68,7 @@
 
 {% trans "Hello," %}
 
-{% trans "You have been invited to join our platform as a" %} {% if role == 'admin' %}{% trans "Administrator" %}{% elif role == 'moderator' %}{% trans "Moderator" %}{% else %}{% trans "User" %}{% endif %}.
+{% trans "You have been invited to join our platform as a" %} {{ group|capfirst }}.
 {% trans "Please use the link below to complete your registration:" %}
 
 {{ invitation_url }}
