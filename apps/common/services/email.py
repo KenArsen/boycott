@@ -96,3 +96,18 @@ class EmailService:
         logger.info(f"Sending invitation email to {invitation.email}")
 
         cls.send_email(subject, recipient_list, template_name, context)
+
+    @classmethod
+    def send_email_verification_code(cls, verification_code):
+        subject = _("Verify your email address")
+        recipient_list = [verification_code.user.email]
+        template_name = "account/verification_code.html"
+        context = {
+            "user": verification_code.user,
+            "code": verification_code.code,
+            "site_name": "Boycott Products Platform",
+            "expiry_hours": 24,
+        }
+        logger.info(f"Sending verification code to {verification_code.user.email}")
+
+        cls.send_email(subject, recipient_list, template_name, context)

@@ -10,7 +10,9 @@ logger = logging.getLogger("apps")
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, group_names=["User"], **extra_fields):
+    def create_user(self, email, password=None, group_names=None, **extra_fields):
+        if group_names is None:
+            group_names = ["User"]
         if not email:
             logger.error("Attempt to create user without email")
             raise ValueError("The Email field must be set")
@@ -36,15 +38,10 @@ class UserManager(BaseUserManager):
 class User(CoreModel, AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name=_("Email"))
-    first_name = models.CharField(
-        max_length=255, blank=True, verbose_name=_("First Name")
-    )
-    last_name = models.CharField(
-        max_length=255, blank=True, verbose_name=_("Last Name")
-    )
-    phone_number = models.CharField(
-        max_length=255, blank=True, verbose_name=_("Phone Number")
-    )
+    first_name = models.CharField(max_length=255, blank=True, verbose_name=_("First Name"))
+    last_name = models.CharField(max_length=255, blank=True, verbose_name=_("Last Name"))
+    phone_number = models.CharField(max_length=255, blank=True, verbose_name=_("Phone Number"))
+    is_email_verified = models.BooleanField(default=False, verbose_name=_("Email Verified"))
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
